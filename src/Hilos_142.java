@@ -74,7 +74,6 @@ public class Hilos_142 extends Thread {
 			for (Thread t : threads) {
 				maxThreadLength = Integer.max(maxThreadLength, t.getName().length());
 			}
-
 			printDiagram(maxDuration, threads, diagram, maxThreadLength);
 
 			printHorizontalLine(maxThreadLength);
@@ -107,7 +106,13 @@ public class Hilos_142 extends Thread {
 			long partLength = maxDuration / DIAGRAM_POSITIONS;
 			boolean started = false;
 			char toPrint = ' ';
-			System.out.print(threads[i].getName() + " |");
+			System.out.print(threads[i].getName());
+			for (int j = threads[i].getName().length(); j < maxThreadLength; j++) {
+				System.out.print(" ");
+			}
+			
+			System.out.print(" |");
+			
 			for (int j = 0; j < DIAGRAM_POSITIONS; j++) {
 				if (diagram[i][0] > partLength * j || diagram[i][1] < partLength * j) {
 					toPrint = ' ';

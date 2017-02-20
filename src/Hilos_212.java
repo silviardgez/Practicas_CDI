@@ -10,10 +10,6 @@ public class Hilos_212 {
 	 * formella@uvigo.es, http://formella.webs.uvigo.es
 	 */
 
-	/**
-	 * \file \brief Gray scale image read/write
-	 */
-
 	/// \brief Main class to launch application.
 	/// \note We always print a final message before leaving.
 
@@ -67,6 +63,6 @@ public class Hilos_212 {
 			System.exit(1);
 		}
 		// As always: out last line.
-		System.out.println("exiting...");
+		System.out.println("Program of exercise 2.1.2 has terminated");
 	}
 }

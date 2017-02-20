@@ -62,6 +62,6 @@ public class Hilos_211 {
 			System.exit(1);
 		}
 		// As always: out last line.
-		System.out.println("exiting...");
+		System.out.println("Program of exercise 2.1.1 has terminated");
 	}
 }
