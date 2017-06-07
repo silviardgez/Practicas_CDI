@@ -1,3 +1,4 @@
+package Practica_2.Practica_21;
 
 // These are the packages we need for the example.
 import java.awt.image.*;

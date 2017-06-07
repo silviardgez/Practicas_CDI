@@ -1,5 +1,7 @@
+package Practica_1.Practica_12;
+import java.util.Date;
 
-public class Hilos_131 extends Thread {
+public class Hilos_141 extends Thread {
 
 	public void run() {
 
@@ -7,7 +9,7 @@ public class Hilos_131 extends Thread {
 		System.out.println("Hello, I’m thread number " + threadName);
 
 		try {
-			Thread.sleep(1000); // Stop the process 1 second
+			Thread.sleep(1000);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -17,17 +19,23 @@ public class Hilos_131 extends Thread {
 	}
 
 	public static void main(String[] args) {
+		// Declare variables to calculate the time
+		long initialTime;
+		long totalTime;
+
+		// Init initial time
+		initialTime = new Date().getTime();
 
 		if (args.length > 1 || args.length == 0) {
 			System.out.println("Error in arguments");
 		} else {
 
 			// Create an array with the length equal to the number passed as argument
-			Hilos_131[] threads = new Hilos_131[Integer.parseInt(args[0])];
+			Hilos_141[] threads = new Hilos_141[Integer.parseInt(args[0])];
 
 			// Create and start threads, and added their into the array "threads"
 			for (int i = 0; i < Integer.parseInt(args[0]); i++) {
-				Hilos_131 thread = new Hilos_131();
+				Hilos_141 thread = new Hilos_141();
 				threads[i] = thread;
 				thread.start();
 			}
@@ -41,8 +49,9 @@ public class Hilos_131 extends Thread {
 			}
 		}
 
-		System.out.println("Program of exercise 2 has terminated");
+		System.out.println("Program of exercise 1.4.1 has terminated");
 
+		totalTime = new Date().getTime() - initialTime;
+		System.out.println("The execution time is " + totalTime + " ms.");
 	}
-
 }
