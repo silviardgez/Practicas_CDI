@@ -11,6 +11,15 @@ public class Hilos_213 extends Thread {
 	 */
 
 	static BufferedImage img;
+	static int widthThread;
+	static int heightThread;
+	static int thresholdThread;
+	
+	public Hilos_213(int width, int height, int threshold) {
+		widthThread = width;
+		heightThread = height;
+		thresholdThread = threshold;
+	}
 
 	public void run() {
 
@@ -18,7 +27,33 @@ public class Hilos_213 extends Thread {
 		System.out.println("Hello, I’m thread number " + threadName);
 
 		try {
-			Thread.sleep(1000); // Stop the process 1 second
+			int[][] data = new int[widthThread][heightThread];
+			Raster raster_in = img.getData();
+			System.out.println(widthThread + " " + heightThread);
+			// We copy the data from the image to our array.
+			for (int i = 0; i < widthThread; i++) {
+				for (int j = 0; j < heightThread; j++) {
+					final int d = raster_in.getSample(i, j, 0);
+					if (d > thresholdThread) {
+						data[i][j] = 16777215;
+					} else {
+						data[i][j] = 0;
+					}
+				}
+			}
+
+			// We build an output raster and fill-in with some modified data.
+			WritableRaster raster_out = img.getRaster();
+			for (int i = 0; i < widthThread; i++) {
+				for (int j = 0; j < heightThread; j++) {
+					raster_out.setSample(i, j, 0, data[i][j] / 2);
+				}
+			}
+
+			// We set an output image with the raster and write the
+			// image to a file.
+			img.setData(raster_out);
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -42,37 +77,18 @@ public class Hilos_213 extends Thread {
 			// We prepare our data array and a raster to access the image.
 			final int width = img.getWidth();
 			final int height = img.getHeight();
+			System.out.println("LA ALTURA TOTAL ES " + height);
+			System.out.println("EL ANCHO TOTAL ES " + width);
 			final int threadRange = height / threads;
-			int[][] data = new int[width][height];
-			Raster raster_in = img.getData();
-
+			System.out.println("EL RANGO ES " + threadRange);
+			
 			for (int i = 0; i < threads; i++) {
-				
+				System.out.println("La multiplicación es: " + threadRange*i);
+				int heightVar = threadRange*i;
+				Hilos_213 thread = new Hilos_213(width,heightVar,threshold);
+				thread.start();
 			}
 
-			// We copy the data from the image to our array.
-			for (int i = 0; i < width; i++) {
-				for (int j = 0; j < height; j++) {
-					final int d = raster_in.getSample(i, j, 0);
-					if (d > threshold) {
-						data[i][j] = 16777215;
-					} else {
-						data[i][j] = 0;
-					}
-				}
-			}
-
-			// We build an output raster and fill-in with some modified data.
-			WritableRaster raster_out = img.getRaster();
-			for (int i = 0; i < width; i++) {
-				for (int j = 0; j < height; j++) {
-					raster_out.setSample(i, j, 0, data[i][j] / 2);
-				}
-			}
-
-			// We set an output image with the raster and write the
-			// image to a file.
-			img.setData(raster_out);
 			File file_out = new File("n.png");
 			ImageIO.write(img, "png", file_out);
 		} catch (Exception E) {
