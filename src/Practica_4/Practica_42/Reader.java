@@ -37,7 +37,7 @@ public class Reader extends Thread {
      */
     public void run() {
         while (!book.isRead()) {
-            synchronized (book) {
+            synchronized (book) { //Critical region. It can only be executed by a thread at the same time.
                 if (book.MyTurn(idReader)) {
                     if (this.book.read(idReader)) {
                         pageRead++;
