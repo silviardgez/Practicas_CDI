@@ -24,6 +24,7 @@ public class Library {
         Reader[] readers = new Reader[numReaders];
         Book lib = new Book(numPages, readTime);
         double start = new Date().getTime(); //start time
+        System.out.println("The program is starting");
         
         //Initialize threads (readers)
         for (int i = 0; i < numReaders; i++) {
