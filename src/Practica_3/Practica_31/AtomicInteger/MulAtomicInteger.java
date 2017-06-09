@@ -1,6 +1,5 @@
 package Practica_3.Practica_31.AtomicInteger;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.Random;
 import java.util.Set;
 
 /**
